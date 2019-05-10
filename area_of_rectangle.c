@@ -1,8 +1,9 @@
 #include<stdio.h>
+#include<math.h>
 
-struct points
+struct point
 {
-	int x, y;
+	float x, y;
 };
 
 struct rectangle
@@ -11,10 +12,28 @@ struct rectangle
 	float area;
 };
 
-struct rectangle Area(struct rectangle rect)
+struct rectangle FindArea(struct rectangle rect)
 {
-	int distence[3];
+	//√ (x2 − x1)2 + (y2 − y1)2
+	float distence[3], side1, side2;
+	distence[0] = sqrt(pow((rect.poi[1].x) - (rect.poi[0].x), 2) + pow((rect.poi[1].y) - (rect.poi[0].y), 2));
+	distence[1] = sqrt(pow((rect.poi[2].x) - (rect.poi[0].x), 2) + pow((rect.poi[2].y) - (rect.poi[0].y), 2));
+	distence[2] = sqrt(pow((rect.poi[2].x) - (rect.poi[1].x), 2) + pow((rect.poi[2].y) - (rect.poi[1].y), 2));
 	
+    	if( distence[0] >= distence[1] && distence[0] >= distence[2] )
+        	side1 = distence[1];
+		side2 = distence[2];
+
+    	if( distence[1] >= distence[0] && distence[1] >= distence[2] )
+        	side1 = distence[0];
+		side2 = distence[2];
+
+    	if( distence[2] >= distence[0] && distence[2] >= distence[1] )
+        	side1 = distence[1];
+		side2 = distence[0];
+
+	rect->area = (side1 * side2);
+	return rect;
 }
 
 void main()
@@ -28,10 +47,13 @@ void main()
 	{
 		for (i = 0; i < 3; i++ )
 		{
-			scanf("%d%d",&rect[j]->x[i],&rect->y[i]);
+			scanf("%d%d",&(rect[j].poi[i].x),&(rect.poi[i].y));
 		}
-		rect[j] = Area(rect[j]);
+		rect[j] = FindArea(rect[j]);
 	}
 
-	printf("area = ", area);
+	for (j = 0; j < n; j++)
+	{
+		printf("area = %f", rect[i].area);
+	}
 }
